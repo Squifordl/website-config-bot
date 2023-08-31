@@ -15,14 +15,14 @@ function ServerPage() {
         fetch(`/api/server/${serverId}`)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('A resposta da rede não foi boa');
                 }
                 return response.json();
             })
             .then(data => setServerData(data.server))
             .catch(error => {
-                console.error('There has been a problem with your fetch operation:', error);
-                setError("There was an error fetching the server data.");
+                console.error('Ocorreu um problema com sua operação de busca:', error);
+                setError("Ocorreu um erro ao buscar os dados do servidor.");
             });
     }, [serverId]);
 
@@ -34,7 +34,7 @@ function ServerPage() {
     if (error) return (
         <div className="error-message">
             {error}
-            <button onClick={() => window.location.reload()}>{('Try Again')}</button>
+            <button onClick={() => window.location.reload()}>'Tentar Novamente'</button>
         </div>
     );
 
@@ -48,8 +48,8 @@ function ServerPage() {
             </div>
             <div className="sidebar-menu">
                 <ul>
-                    <li className="menu-item active"><Link to={`/server/${serverId}/dashboard`}>{('HOME')}</Link></li>
-                    <li className="menu-item"><Link to={`/server/${serverId}/vip`}>{('VIP')}</Link></li>
+                    <li className="menu-item active"><Link to={`/server/${serverId}/dashboard`}>'HOME'</Link></li>
+                    <li className="menu-item"><Link to={`/server/${serverId}/vip`}>'VIP'</Link></li>
                 </ul>
             </div>
             <div className="main-content">

@@ -41,18 +41,18 @@ function VipConfigurationPage() {
     useEffect(() => {
         fetch(`/api/server/roles/${serverID}`).then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error('A resposta da rede não foi boa');
             }
             return response.json();
         }).then(data => {
             setRoles(data.roles);
         }).catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
+            console.error('Ocorreu um problema com sua operação de busca:', error);
         });
 
         fetch(`/api/server/info/${serverID}`).then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error('A resposta da rede não foi boa');
             }
             return response.json();
         }).then(data => {
@@ -65,7 +65,7 @@ function VipConfigurationPage() {
         }).then(vipRoleDetails => {
             setVipRoles(vipRoleDetails.map(detail => detail.role));
         }).catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
+            console.error('Ocorreu um problema com sua operação de busca:', error);
         });
     }, [serverID]);
 
@@ -91,14 +91,14 @@ function VipConfigurationPage() {
             });
 
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error('A resposta da rede não foi boa');
             }
 
             setShowConfirmation(true);
             setTimeout(() => setShowConfirmation(false), 3000);
 
         } catch (error) {
-            console.error('There was a problem saving VIP roles:', error);
+            console.error('Ocorreu um problema ao salvar funções VIP:', error);
         }
     };
 
@@ -114,7 +114,7 @@ function VipConfigurationPage() {
             <div className="config-section">
                 <h2>Cargos Disponíveis</h2>
                 <div className="role-list">
-                    {roles.map((role, index) => (
+                    {roles.map((role) => (
                         <div key={role.id} className="config-row">
                             <span>
                             <span className="role-name">Nome: </span>{role.name} ({role.id})
@@ -128,7 +128,7 @@ function VipConfigurationPage() {
             <div className="config-section">
                 <h2>Cargos VIP Atuais</h2>
                 <div className="vip-list">
-                    {vipRoles.map((role, index) => (
+                    {vipRoles.map((role) => (
                         <div key={role.id} className="config-row">
                             <span>
                                 <span className="role-name">Nome: </span>{role.name} ({role.id})

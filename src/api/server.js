@@ -71,7 +71,6 @@ let usert;
 app.get("/oauth", async (req, res) => {
     const { code } = req.query;
 
-    console.log(code)
     if (code) {
         try {
             const tokenResponseData = await request(
@@ -149,7 +148,6 @@ app.get('/api/server/auth-check/:userId', async (req, res) => {
 
 app.get("/api/servers/:userId", async (req, res) => {
     const { userId } = req.params;
-    console.log(redisClient)
     redisClient.get(`servers:${userId}`, async (err, cachedData) => {
         if (cachedData) {
             return res.json({ servers: JSON.parse(cachedData) });
@@ -236,8 +234,6 @@ app.get("/api/server/roles/:serverId/:roleId", async (req, res) => {
     const { serverId, roleId } = req.params;
 
     const server = client.guilds.cache.get(serverId);
-
-    console.log(roleId)
 
     if (!server) {
         return res.status(404).json({ msg: 'Server not found' });

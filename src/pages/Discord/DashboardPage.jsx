@@ -30,14 +30,13 @@ function DashboardPage() {
         const userId = localStorage.getItem('userId');
         fetch(`/api/servers/${userId}`)
             .then(response => {
-                console.log(response)
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('A resposta da rede não foi boa');
                 }
                 return response.json();
             })
             .then(data => setServers(data.servers))
-            .catch(error => console.error('There has been a problem with your fetch operation:', error));
+            .catch(error => console.error('Ocorreu um problema com sua operação de busca:', error));
     }, [navigate, isUserLoggedIn, isAuthenticating]);
 
     const getIconUrl = useCallback((server) => {
@@ -52,8 +51,8 @@ function DashboardPage() {
                 <LoadingSpinner />
             ) : (
                 <>
-                    <h1 className="dashboard-title">{('Dashboard')}</h1>
-                    <h2 className="dashboard-subtitle">{('Shared Servers')}</h2>
+                    <h1 className="dashboard-title">'Dashboard'</h1>
+                    <h2 className="dashboard-subtitle">'Servidores Compartilhados'</h2>
                     <div className="server-list">
                         {servers.length > 0 ? (
                             servers.map(server => (
@@ -64,7 +63,7 @@ function DashboardPage() {
                             ))
                         ) : (
                             <div className="no-servers-message">
-                                {('No shared servers found.')}
+                                'Nenhum servidor compartilhado encontrado.'
                             </div>
                         )}
                     </div>

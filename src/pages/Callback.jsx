@@ -14,7 +14,6 @@ const Callback = () => {
     useEffect(() => {
         const fetchData = async () => {
             if (userId && username) {
-                console.log()
                 localStorage.setItem("token", `${acesstoken}`);
                 localStorage.setItem("userId", `${userId}`);
                 localStorage.setItem("username", `${username}`);
@@ -34,7 +33,7 @@ const Callback = () => {
 
     return (
         <div className={`callback-container`}>
-            <h1>{'Processing login...'}</h1>
+            <h1>'Processando login...'</h1>
         </div>
     );
 };
