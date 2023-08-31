@@ -37,7 +37,6 @@ const client = new Client({
         Partials.GuildMember,
         Partials.User,
         Partials.Channel,
-        Partials.Role,
         Partials.Message
     ],
     allowedMentions: {
