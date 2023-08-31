@@ -8,7 +8,7 @@ Este projeto fornece um sistema de configuração de bot para servidores Discord
 
 - Node.js v14 ou superior
 - MongoDB
-- Redis
+- Redis Cloud `https://redis.com/redis-enterprise-cloud/overview/`
 - Conta no Discord e um bot criado para obter o token
 
 ## Instalação e Configuração
