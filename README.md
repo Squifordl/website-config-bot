@@ -37,16 +37,16 @@ npm install
 
 Renomeie o arquivo .env.example para .env e preencha as variáveis de ambiente necessárias:
 
-`JWT_SECRET_KEY`: Chave secreta para tokens JWT.
-`NODE_ENV`: Ambiente no qual o Node.js está executando (geralmente "development" ou "production").
-`MONGO_URI`: URI da sua base de dados MongoDB.
-`TOKEN`: Token do seu bot Discord.
-`PORT`: Porta em que o servidor deve rodar.
-`CLIENT_ID`: ID do cliente do bot no Discord.
-`CLIENT_SECRET`: Segredo do cliente do bot no Discord.
-`REDIS_PASSWORD`: Senha do seu servidor Redis.
-`REDIS_HOST`: Host do servidor Redis.
-`REDIS_PORT`: Porta do servidor Redis.
+- `JWT_SECRET_KEY`: Chave secreta para tokens JWT.
+- `NODE_ENV`: Ambiente no qual o Node.js está executando (geralmente "development" ou "production").
+- `MONGO_URI`: URI da sua base de dados MongoDB.
+- `TOKEN`: Token do seu bot Discord.
+- `PORT`: Porta em que o servidor deve rodar.
+- `CLIENT_ID`: ID do cliente do bot no Discord.
+- `CLIENT_SECRET`: Segredo do cliente do bot no Discord.
+- `REDIS_PASSWORD`: Senha do seu servidor Redis.
+- `REDIS_HOST`: Host do servidor Redis.
+- `REDIS_PORT`: Porta do servidor Redis.
 
 Exemplo:
 
