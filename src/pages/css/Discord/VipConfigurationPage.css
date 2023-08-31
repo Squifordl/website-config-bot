@@ -1,0 +1,120 @@
+.vip-config-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 50px;
+    background-color: #1e1e1e;
+    border-radius: 5px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+    color: var(--text-color);
+}
+
+.vip-config-container h1,
+.vip-config-container h2 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.config-section {
+    margin-bottom: 30px;
+}
+
+.config-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.config-row label {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.config-row input[type="text"] {
+    flex: 2;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 10px;
+    width: 100%;
+    outline: none;
+}
+
+.config-row input[type="text"]:focus {
+    border-color: var(--input-focus-border-color);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+}
+
+.config-row button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.config-row button:hover {
+    background-color: var(--button-hover-bg-color);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+}
+
+.config-row button:active {
+    background-color: var(--button-active-bg-color);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.vip-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.confirmation-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.confirmation-content {
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    background: var(--text-color);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.confirmation-content button {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.confirmation-content button:hover {
+    background-color: #23923d;
+}
+
+.role-name {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.role-id {
+    font-weight: bold;
+    color: #ffffff;
+}

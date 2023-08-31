@@ -1,0 +1,35 @@
+.home-container {
+    background-color: #f3f4f6;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .home-header {
+    font-size: 2.5rem;
+    color: #333;
+  }
+  
+  .home-description {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+  }
+  
+  .button-container {
+    margin-top: 1rem;
+  }
+  
+  .btn {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    background-color: #45a049;
+  }
+  

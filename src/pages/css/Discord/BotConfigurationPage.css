@@ -1,0 +1,132 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    align-items: center;
+    background-color: #1e1e1e;
+}
+
+.bot-config-container {
+    max-width: 800px;
+    margin: 0;
+    padding: 50px;
+    background-color: #1e1e1e;
+    border-radius: 5px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+}
+
+.bot-config-container h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #fff;
+    text-align: center;
+}
+
+.bot-config-container .config-section {
+    margin-bottom: 30px;
+}
+
+.bot-config-container .config-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e1e4e8;
+    padding-bottom: 10px;
+    color: #fff;
+}
+
+.bot-config-container .config-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.bot-config-container .config-row label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-right: 20px;
+}
+
+.bot-config-container select {
+    background: none;
+    border: none;
+    border-bottom: 1px solid #e1e4e8;
+    padding: 10px;
+    color: #fff;
+    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    padding-left: 5px;
+    padding-bottom: 10px;
+    outline: none;
+}
+
+.bot-config-container select:focus {
+    border-color: #0366d6;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+    background-color: #1e1e1e;
+    color: #fff;
+}
+
+.bot-config-container select:hover {
+    cursor: pointer;
+}
+
+.bot-config-container button {
+    padding: 10px 20px;
+    background: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bot-config-container button:hover {
+    background-color: #23923d;
+    transform: translateY(-2px);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.bot-config-container button:active {
+    transform: translateY(0px);
+    box-shadow: none;
+}
+
+.confirmation-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.confirmation-content {
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    background: var(--text-color);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.confirmation-content button {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.confirmation-content button:hover {
+    background-color: #23923d;
+}

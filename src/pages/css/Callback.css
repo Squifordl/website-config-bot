@@ -1,0 +1,10 @@
+.callback-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: #2c2f33;
+    color: white;
+  }
