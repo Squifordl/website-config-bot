@@ -1,0 +1,67 @@
+.commands-container {
+    background-color: #1e1e1e;
+    padding: 2rem;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.button-container {
+    margin-bottom: 1rem;
+}
+
+.btn {
+    background-color: #444644;
+    border: none;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+}
+
+.commands-header {
+    color: #ffffff;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.commands-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.command-card {
+    background: #2a2a2a;
+    border-radius: 8px;
+    width: 180px;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+@media only screen and (max-width: 800px) {
+    .commands-header {
+        font-size: 2rem;
+    }
+
+    .command-card {
+        margin: 0.5rem;
+        padding: 0.5rem;
+        width: 150px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .commands-header {
+        font-size: 1.5rem;
+    }
+}

@@ -315,7 +315,23 @@ app.post('/api/server/saveVipRoles/:serverId', async (req, res) => {
         return res.status(500).json({ message: 'Erro interno' });
     }
 });
-
+const commands = [
+    {
+        name: 'ping',
+        category: 'Utilitário',
+        description: 'Verifica a latência do bot.',
+        usage: '!ping'
+    },
+    {
+        name: 'say',
+        category: 'Diversão',
+        description: 'Faz o bot repetir sua mensagem.',
+        usage: '!say [mensagem]'
+    }
+]
+app.get('/api/commands', async (req, res) => {
+    res.json({ commands });
+});
 
 const PORT = process.env.PORT
 

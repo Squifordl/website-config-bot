@@ -5,6 +5,7 @@ import DashboardPage from './pages/Discord/DashboardPage';
 import ServerPage from './pages/Discord/ServerPage';
 import LoginPage from './pages/LoginPage';
 import Callback from './pages/Callback';
+import CommandsPage from './pages/CommandsPage';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './contexts/authContext';
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/callback" element={<Callback />} />
+          <Route path="/comandos" element={<CommandsPage />} />
           <Route path="/dashboard" element={
             <PrivateRoute>
               <DashboardPage />
