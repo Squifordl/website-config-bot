@@ -34,7 +34,7 @@ function ServerPage() {
     if (error) return (
         <div className="error-message">
             {error}
-            <button onClick={() => window.location.reload()}>'Tentar Novamente'</button>
+            <button onClick={() => window.location.reload()}>Tentar Novamente</button>
         </div>
     );
 
@@ -48,8 +48,8 @@ function ServerPage() {
             </div>
             <div className="sidebar-menu">
                 <ul>
-                    <li className="menu-item active"><Link to={`/server/${serverId}/dashboard`}>'HOME'</Link></li>
-                    <li className="menu-item"><Link to={`/server/${serverId}/vip`}>'VIP'</Link></li>
+                    <li className="menu-item active"><Link to={`/server/${serverId}/dashboard`}>HOME</Link></li>
+                    <li className="menu-item"><Link to={`/server/${serverId}/vip`}>VIP</Link></li>
                 </ul>
             </div>
             <div className="main-content">

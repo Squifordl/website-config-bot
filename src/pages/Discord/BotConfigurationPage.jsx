@@ -105,11 +105,11 @@ function BotConfigurationPage() {
 
     return (
         <div className="bot-config-container">
-            <h1>'Configurações do bot'</h1>
+            <h1>Configurações do bot</h1>
 
             <div className="config-section">
                 <div className="config-row">
-                    <label>'Prefixo'</label>
+                    <label>Prefixo</label>
                     <StyledTextField
                         name="commandPrefix"
                         value={botSettings.commandPrefix}

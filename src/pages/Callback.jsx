@@ -33,7 +33,7 @@ const Callback = () => {
 
     return (
         <div className={`callback-container`}>
-            <h1>'Processando login...'</h1>
+            <h1>Processando login...</h1>
         </div>
     );
 };

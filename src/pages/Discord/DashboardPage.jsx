@@ -51,8 +51,8 @@ function DashboardPage() {
                 <LoadingSpinner />
             ) : (
                 <>
-                    <h1 className="dashboard-title">'Dashboard'</h1>
-                    <h2 className="dashboard-subtitle">'Servidores Compartilhados'</h2>
+                    <h1 className="dashboard-title">Dashboard</h1>
+                    <h2 className="dashboard-subtitle">Servidores Compartilhados</h2>
                     <div className="server-list">
                         {servers.length > 0 ? (
                             servers.map(server => (
@@ -63,7 +63,7 @@ function DashboardPage() {
                             ))
                         ) : (
                             <div className="no-servers-message">
-                                'Nenhum servidor compartilhado encontrado.'
+                                Nenhum servidor compartilhado encontrado.
                             </div>
                         )}
                     </div>
