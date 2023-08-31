@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+# Projeto de Configuração de Bot para Discord
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Descrição
 
-## Available Scripts
+Este projeto fornece um sistema de configuração de bot para servidores Discord. Ele permite que você gerencie cargos VIP, realize integrações com a API do Discord e outras funcionalidades relacionadas.
 
-In the project directory, you can run:
+## Requisitos
 
-### `npm start`
+- Node.js v14 ou superior
+- MongoDB
+- Redis
+- Conta no Discord e um bot criado para obter o token
 
-Runs the app in the development mode.\
-Open [http://localhost:5000](http://localhost:5000) to view it in your browser.
+## Instalação e Configuração
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Clonar o Repositório
 
-### `npm test`
+Primeiro, clone o repositório para sua máquina local:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+git clone https://github.com/Squifordl/website-config-bot.git
+```
 
-### `npm run build`
+## Instalar Dependências
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Navegue para o diretório do projeto e instale as dependências necessárias:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+cd website-config-bot
+npm install
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+cd src/api
+npm install
+```
 
-### `npm run eject`
+## Configurar Variáveis de Ambiente
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Renomeie o arquivo .env.example para .env e preencha as variáveis de ambiente necessárias:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`JWT_SECRET_KEY`: Chave secreta para tokens JWT.
+`NODE_ENV`: Ambiente no qual o Node.js está executando (geralmente "development" ou "production").
+`MONGO_URI`: URI da sua base de dados MongoDB.
+`TOKEN`: Token do seu bot Discord.
+`PORT`: Porta em que o servidor deve rodar.
+`CLIENT_ID`: ID do cliente do bot no Discord.
+`CLIENT_SECRET`: Segredo do cliente do bot no Discord.
+`REDIS_PASSWORD`: Senha do seu servidor Redis.
+`REDIS_HOST`: Host do servidor Redis.
+`REDIS_PORT`: Porta do servidor Redis.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Exemplo:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+JWT_SECRET_KEY=meuSegredo
+NODE_ENV=development
+MONGO_URI=mongodb://localhost:27017/meuBancoDeDados
+TOKEN=meuTokenDoBot
+PORT=3000
+CLIENT_ID=meuIdDoCliente
+CLIENT_SECRET=meuSegredoDoCliente
+REDIS_PASSWORD=minhaSenhaRedis
+REDIS_HOST=localhost
+REDIS_PORT=6379
+```
 
-## Learn More
+## Execução do Projeto
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Depois de configurar todas as variáveis de ambiente necessárias, você está pronto para executar o projeto. O projeto é dividido em duas partes: Front-End e Back-End. Abaixo estão os passos para executar cada uma delas.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Executando o Front-End
 
-### Code Splitting
+1. Navegue até a raiz do projeto no terminal.
+2. Compile o projeto Front-End executando o seguinte comando:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    ```bash
+    npm run build
+    ```
 
-### Analyzing the Bundle Size
+    Isso criará uma pasta de saída `build/` contendo os arquivos compilados e prontos para produção.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Executando o Back-End
 
-### Making a Progressive Web App
+1. Navegue até o diretório `src/api`:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    ```bash
+    cd src/api
+    ```
 
-### Advanced Configuration
+2. Inicie o servidor executando o seguinte comando:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+    ```bash
+    node server.js
+    ```
 
-### Deployment
+Agora, seu servidor Back-End deve estar rodando, e o Front-End deve estar pronto para ser servido. Você pode acessar a interface do usuário através do navegador, apontando para o endereço e a porta em que o Back-End está rodando (por exemplo, `http://localhost:PORTA`).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Contrubuições
 
-### `npm run build` fails to minify
+Se você gostaria de contribuir, fique à vontade para fazer um fork do repositório, abrir um pull request e reports de Bugs.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Licença
+
+Este projeto é licenciado sob a licença MIT.
