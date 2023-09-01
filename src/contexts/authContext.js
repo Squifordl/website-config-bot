@@ -10,25 +10,14 @@ export function useAuth() {
 export function AuthProvider({ children }) {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
     const [isAuthenticating, setIsAuthenticating] = useState(true);
-
+    const userId = localStorage.getItem('userId');
 
     useEffect(() => {
         const checkAuthStatus = async () => {
-            const token = localStorage.getItem('token');
-            const ID = localStorage.getItem('userId');
-            if (!token) {
-                setIsUserLoggedIn(false);
-                setIsAuthenticating(false);
-                return;
-            }
-
             try {
-                const response = await axios.get(`/api/server/auth-check/${ID}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+                const response = await axios.get(`/api/server/auth-check/${userId}`, {
+                    withCredentials: true
                 });
-
                 setIsUserLoggedIn(response.status === 200);
             } catch (error) {
                 setIsUserLoggedIn(false);
@@ -38,7 +27,8 @@ export function AuthProvider({ children }) {
         };
 
         checkAuthStatus();
-    }, []);
+    }, [userId, setIsUserLoggedIn, setIsAuthenticating]);
+
 
     const value = {
         isUserLoggedIn,

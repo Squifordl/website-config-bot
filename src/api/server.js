@@ -102,16 +102,18 @@ app.get("/oauth", async (req, res) => {
 
             await UserTeste.findOneAndUpdate({ idU: usert.id }, { acesstoken: oauthData.access_token }, { new: true });
 
-            const token = jwt.sign({ userId: usert.id }, SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ idU: usert.id, acesstoken: oauthData.access_token }, SECRET, { expiresIn: '3d' });
+
+            const threeDaysInMilliseconds = 3 * 24 * 60 * 60 * 1000;
 
             res.cookie('token', token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV !== 'development',
-                maxAge: 60 * 60 * 1000,
+                expires: new Date(Date.now() + threeDaysInMilliseconds),
+                secure: true,
             });
 
             res.redirect(
-                `http://localhost:5000/callback?code=${code}&userId=${usert.id}&username=${usert.username}&avatar=${usert.avatar}&discriminator=${usert.discriminator}&acesstoken=${oauthData.access_token}`
+                `http://localhost:5000/callback?code=${code}&userId=${usert.id}&username=${usert.username}&avatar=${usert.avatar}&discriminator=${usert.discriminator}&acesstoken=${token}`
             );
 
         } catch (error) {
@@ -121,29 +123,29 @@ app.get("/oauth", async (req, res) => {
 });
 app.get('/api/server/auth-check/:userId', async (req, res) => {
     const { userId } = req.params;
-    const authHeader = req.headers.authorization;
+    const token = req.cookies.token;
 
-    if (!authHeader) {
-        return res.status(401).json({ message: 'Nenhum cabeçalho de autorização fornecido' });
-    }
-
-    const token = authHeader.split(' ')[1];
-
-    const user = await UserTeste.findOne({ idU: userId });
-
-    if (!user) {
-        return res.status(404).json({ message: 'Usuário não encontrado' });
-    }
-
-    const storedToken = user.acesstoken;
-
-    if (!storedToken || storedToken !== token) {
+    if (!token) {
         return res.status(401).json({ message: 'Usuário não autenticado' });
     }
 
-    res.status(200).json({ message: 'Usuário autenticado' });
-});
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
+        if (decoded.idU === userId) {
+            const user = await UserTeste.findOne({ idU: userId });
+            if (!user) {
+                return res.status(404).json({ message: 'Usuário não encontrado' });
+            }
+            return res.status(200).json({ message: 'Usuário autenticado' });
+        } else {
+            return res.status(401).json({ message: 'Usuário não autenticado' });
+        }
+    } catch (err) {
+        console.error(err);
+        return res.status(401).json({ message: 'Usuário não autenticado' });
+    }
+});
 
 app.get("/api/servers/:userId", async (req, res) => {
     const { userId } = req.params;
@@ -186,9 +188,7 @@ app.get("/api/server/:serverId", async (req, res) => {
     const server = client.guilds.cache.get(serverId);
 
     if (!server) {
-
         return res.status(404).json({ msg: 'Server not found' });
-
     }
 
     const members = await server.members.fetch();
