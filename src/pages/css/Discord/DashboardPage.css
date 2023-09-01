@@ -4,6 +4,11 @@
     min-height: 100vh;
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
+    color: #e2dddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 .dashboard-title {
@@ -34,18 +39,24 @@
     transition: box-shadow 0.3s ease;
 }
 
+.server-item:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
 .server-icon {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .server-name {
+    color: #e2dddd;
+    font-size: 1.2em;
     margin-top: 10px;
     word-break: break-word;
-    text-align: center;
 }
 
 .server-item:hover {
@@ -61,6 +72,7 @@
     padding: 20px;
     border: 2px dashed currentColor;
     border-radius: 8px;
+    transition: color 0.3s ease;
 }
 
 .loading-spinner {
@@ -68,15 +80,33 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100vh;
 }
 
-.spinner {
-    border: 4px solid rgba(0, 0, 0, 0.3);
-    width: 50px;
-    height: 50px;
+.server-loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
     border-radius: 50%;
-    border-top-color: #000;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #3498db;
     animation: spin 1s linear infinite;
+}
+
+
+.error-message {
+    background-color: #f44336;
+    color: white;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
 }
 
 @keyframes spin {

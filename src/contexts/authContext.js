@@ -10,6 +10,7 @@ export function useAuth() {
 export function AuthProvider({ children }) {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
     const [isAuthenticating, setIsAuthenticating] = useState(true);
+    const [authError, setAuthError] = useState(null);
     const userId = localStorage.getItem('userId');
 
     useEffect(() => {
@@ -21,6 +22,7 @@ export function AuthProvider({ children }) {
                 setIsUserLoggedIn(response.status === 200);
             } catch (error) {
                 setIsUserLoggedIn(false);
+                setAuthError('Falha na autenticação. Tente novamente.');
             } finally {
                 setIsAuthenticating(false);
             }
@@ -29,10 +31,10 @@ export function AuthProvider({ children }) {
         checkAuthStatus();
     }, [userId, setIsUserLoggedIn, setIsAuthenticating]);
 
-
     const value = {
         isUserLoggedIn,
         isAuthenticating,
+        authError,
     };
 
     return (

@@ -18,6 +18,8 @@ function DashboardPage() {
     const { isUserLoggedIn, isAuthenticating } = useAuth();
     const [servers, setServers] = useState([]);
     const [showSpinner, setShowSpinner] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         if (!isAuthenticating && !isUserLoggedIn) {
@@ -26,6 +28,8 @@ function DashboardPage() {
                 navigate('/login');
             }, 2500);
         }
+        setShowSpinner(false);
+        setIsLoading(true);
 
         const userId = localStorage.getItem('userId');
         fetch(`/api/servers/${userId}`)
@@ -35,8 +39,15 @@ function DashboardPage() {
                 }
                 return response.json();
             })
-            .then(data => setServers(data.servers))
-            .catch(error => console.error('Ocorreu um problema com sua operação de busca:', error));
+            .then(data => {
+                setServers(data.servers);
+                setIsLoading(false);
+            })
+            .catch(error => {
+                console.error('Ocorreu um problema com sua operação de busca:', error);
+                setErrorMessage('Ocorreu um erro ao carregar os servidores.');
+                setIsLoading(false);
+            });
     }, [navigate, isUserLoggedIn, isAuthenticating]);
 
     const getIconUrl = useCallback((server) => {
@@ -47,14 +58,19 @@ function DashboardPage() {
 
     return (
         <div className="dashboard">
+            {errorMessage && <div className="error-message">{errorMessage}</div>}
             {showSpinner ? (
                 <LoadingSpinner />
             ) : (
                 <>
                     <h1 className="dashboard-title">Dashboard</h1>
-                    <h2 className="dashboard-subtitle">Servidores Compartilhados</h2>
+                    <h2 className="dashboard-subtitle">Servidores</h2>
                     <div className="server-list">
-                        {servers.length > 0 ? (
+                        {isLoading ? (
+                            <div className="server-loading-spinner">
+                                <div className="spinner"></div>
+                            </div>
+                        ) : servers.length > 0 ? (
                             servers.map(server => (
                                 <div key={server.id} className="server-item" onClick={() => navigate(`/server/${server.id}`)}>
                                     <img className="server-icon" src={getIconUrl(server)} alt={server.name} />
@@ -63,7 +79,7 @@ function DashboardPage() {
                             ))
                         ) : (
                             <div className="no-servers-message">
-                                Nenhum servidor compartilhado encontrado.
+                                Nenhum servidor encontrado.
                             </div>
                         )}
                     </div>
