@@ -23,17 +23,31 @@ const StyledButton = styled(Button)({
         boxShadow: '0 1px 5px rgba(0, 0, 0, 0.2)',
     },
 });
-function ConfirmationPopup({ message, onClose }) {
-    return (
-        <div className="confirmation-popup">
-            <div className="confirmation-content">
-                <p>{message}</p>
-                <button onClick={onClose}>Fechar</button>
-            </div>
+const ConfirmationPopup = ({ message, onClose }) => (
+    <div className="confirmation-popup">
+        <div className="confirmation-content">
+            <p>{message}</p>
+            <button onClick={onClose}>Fechar</button>
         </div>
-    );
-}
-function VipConfigurationPage() {
+    </div>
+);
+
+const RoleRow = ({ role, buttonLabel, onClick }) => (
+    <div className="config-row">
+        <span>
+            <span className="role-name">Nome: </span>{role.name} ({role.id})
+        </span>
+        <button onClick={() => onClick(role)}>{buttonLabel}</button>
+    </div>
+);
+
+const fetchData = async (url) => {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('A resposta da rede não foi boa');
+    return await response.json();
+};
+
+const VipConfigurationPage = () => {
     const [roles, setRoles] = useState([]);
     const [vipRoles, setVipRoles] = useState([]);
     const [initialVipRoles, setInitialVipRoles] = useState([]);
@@ -42,46 +56,27 @@ function VipConfigurationPage() {
     const serverID = window.location.pathname.split('/')[2];
 
     useEffect(() => {
-        fetch(`/api/server/roles/${serverID}`).then(response => {
-            if (!response.ok) {
-                throw new Error('A resposta da rede não foi boa');
-            }
-            return response.json();
-        }).then(data => {
-            setRoles(data.roles);
-        }).catch(error => {
-            console.error('Ocorreu um problema com sua operação de busca:', error);
-        });
+        const fetchRolesAndVips = async () => {
+            try {
+                const { roles } = await fetchData(`/api/server/roles/${serverID}`);
+                setRoles(roles);
 
-        fetch(`/api/server/info/${serverID}`).then(response => {
-            if (!response.ok) {
-                throw new Error('A resposta da rede não foi boa');
+                const { server } = await fetchData(`/api/server/info/${serverID}`);
+                const vipRoles = await Promise.all(server.vip.map(({ id }) =>
+                    fetchData(`/api/server/roles/${serverID}/${id}`)));
+
+                setVipRoles(vipRoles);
+                setInitialVipRoles([...vipRoles]);
+            } catch (error) {
+                console.error('Ocorreu um problema com sua operação de busca:', error);
             }
-            return response.json();
-        }).then(data => {
-            const vipRoleIds = data.server.vip;
-            return Promise.all(
-                vipRoleIds.map(id => fetch(`/api/server/roles/${serverID}/${id.id}`)
-                    .then(response => response.json())
-                )
-            );
-        }).then(vipRoleDetails => {
-            const roles = vipRoleDetails.map(detail => detail.role);
-            setVipRoles(roles);
-            setInitialVipRoles(roles);
-        }).catch(error => {
-            console.error('Ocorreu um problema com sua operação de busca:', error);
-        });
+        };
+
+        fetchRolesAndVips();
     }, [serverID]);
 
-
-    const addVipRole = (role) => {
-        setVipRoles([...vipRoles, role]);
-    };
-
-    const removeVipRole = (role) => {
-        setVipRoles(vipRoles.filter(r => r.id !== role.id));
-    };
+    const addVipRole = role => setVipRoles([...vipRoles, role]);
+    const removeVipRole = role => setVipRoles(vipRoles.filter(r => r.id !== role.id));
 
     const saveVipRoles = async () => {
         const hasChanges = JSON.stringify(initialVipRoles) !== JSON.stringify(vipRoles);
@@ -117,48 +112,24 @@ function VipConfigurationPage() {
 
     return (
         <div className="vip-config-container">
-            {showNoChanges && (
-                <div className="no-changes-popup">
-                    <p>Nenhuma alteração para ser salva</p>
-                </div>
-            )}
-            {showConfirmation && (
-                <ConfirmationPopup
-                    message="Configurações salvas com sucesso"
-                    onClose={() => setShowConfirmation(false)}
-                />
-            )}
+            {showNoChanges && <div className="no-changes-popup"><p>Nenhuma alteração para ser salva</p></div>}
+            {showConfirmation && <ConfirmationPopup message="Configurações salvas com sucesso" onClose={() => setShowConfirmation(false)} />}
             <h1>Gerenciamento VIP</h1>
             <div className="config-section">
                 <h2>Cargos Disponíveis</h2>
                 <div className="role-list">
-                    {roles.map((role) => (
-                        <div key={role.id} className="config-row">
-                            <span>
-                                <span className="role-name">Nome: </span>{role.name} ({role.id})
-                            </span>
-                            <button onClick={() => addVipRole(role)}>Adicionar</button>
-                        </div>
-                    ))}
+                    {roles.map(role => <RoleRow key={role.id} role={role} buttonLabel="Adicionar" onClick={addVipRole} />)}
                 </div>
             </div>
-
             <div className="config-section">
                 <h2>Cargos VIP Atuais</h2>
                 <div className="vip-list">
-                    {vipRoles.map((role) => (
-                        <div key={role.id} className="config-row">
-                            <span>
-                                <span className="role-name">Nome: </span>{role.name} ({role.id})
-                            </span>
-                            <button onClick={() => removeVipRole(role)}>Remover</button>
-                        </div>
-                    ))}
+                    {vipRoles.map(role => <RoleRow key={role.id} role={role} buttonLabel="Remover" onClick={removeVipRole} />)}
                 </div>
             </div>
             <StyledButton onClick={saveVipRoles}>Salvar Configurações</StyledButton>
         </div>
     );
-}
+};
 
 export default VipConfigurationPage;

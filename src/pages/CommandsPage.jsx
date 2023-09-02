@@ -5,12 +5,17 @@ function CommandsPage() {
     const [commands, setCommands] = useState([]);
 
     useEffect(() => {
-        fetch('/api/commands')
-            .then((res) => res.json())
-            .then((data) => {
-                setCommands(data.commands);
-                console.log(data)
-            });
+        const fetchCommands = async () => {
+            try {
+                const response = await fetch('/api/commands');
+                const { commands } = await response.json();
+                setCommands(commands);
+            } catch (error) {
+                console.error('Ocorreu um erro ao buscar comandos:', error);
+            }
+        };
+
+        fetchCommands();
     }, []);
 
     return (

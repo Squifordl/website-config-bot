@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import styled from '@emotion/styled';
-import axios from 'axios';
 import '../css/Discord/BotConfigurationPage.css';
 
 const StyledTextField = styled(TextField)({
@@ -50,55 +50,50 @@ const StyledButton = styled(Button)({
     },
 });
 
-function ConfirmationPopup({ message, onClose }) {
-    return (
-        <div className="confirmation-popup">
-            <div className="confirmation-content">
-                <p>{message}</p>
-                <button onClick={onClose}>Fechar</button>
-            </div>
+const ConfirmationPopup = ({ message, onClose }) => (
+    <div className="confirmation-popup">
+        <div className="confirmation-content">
+            <p>{message}</p>
+            <button onClick={onClose}>Fechar</button>
         </div>
-    );
-}
+    </div>
+);
 
-function BotConfigurationPage() {
-    const [showConfirmation, setShowConfirmation] = useState(false);
-    const [initialBotSettings, setInitialBotSettings] = useState({});
-    const [showNoChanges, setShowNoChanges] = useState(false);
+const fetchSettings = async (serverID, setBotSettings, setInitialBotSettings) => {
+    try {
+        const response = await fetch(`/api/server/info/${serverID}`);
+        const data = await response.json();
+        setBotSettings({ commandPrefix: data.server.prefix });
+        setInitialBotSettings({ commandPrefix: data.server.prefix });
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const BotConfigurationPage = () => {
+    const [showPopup, setShowPopup] = useState(false);
+    const [popupMessage, setPopupMessage] = useState('');
     const serverID = window.location.pathname.split('/')[2];
-    const [botSettings, setBotSettings] = useState({
-        commandPrefix: "",
-    });
+    const [botSettings, setBotSettings] = useState({ commandPrefix: "" });
+    const [initialBotSettings, setInitialBotSettings] = useState({});
 
     useEffect(() => {
-        fetch(`/api/server/info/${serverID}`)
-            .then(async (response) => {
-                const data = await response.json();
-                setBotSettings({
-                    commandPrefix: data.server.prefix,
-                });
-                setInitialBotSettings({
-                    commandPrefix: data.server.prefix,
-                });
-            })
-            .catch((error) => console.error(error));
+        fetchSettings(serverID, setBotSettings, setInitialBotSettings);
     }, [serverID]);
 
-    const handleChange = (e) => {
-        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-        setBotSettings({
-            ...botSettings,
-            [e.target.name]: value
-        });
+    const handleChange = e => {
+        setBotSettings({ ...botSettings, [e.target.name]: e.target.value });
     };
 
     const saveSettings = async () => {
-        const response = await axios.post(`/api/server/settings/${serverID}`, botSettings).catch(error => {
+        try {
+            const response = await axios.post(`/api/server/settings/${serverID}`, botSettings);
+            if (response.status === 200) {
+                setPopupMessage('Configurações salvas com sucesso');
+                setShowPopup(true);
+            }
+        } catch (error) {
             console.error("Houve um erro na solicitação:", error);
-        });
-
-        if (response && response.status === 200) {
-            setShowConfirmation(true);
         }
     };
 
@@ -106,24 +101,18 @@ function BotConfigurationPage() {
         const hasChanges = JSON.stringify(initialBotSettings) !== JSON.stringify(botSettings);
 
         if (!hasChanges) {
-            setShowNoChanges(true);
-            setTimeout(() => setShowNoChanges(false), 3000);
+            setPopupMessage('Nenhuma alteração para ser salva');
+            setShowPopup(true);
+            setTimeout(() => setShowPopup(false), 3000);
             return;
         }
 
         saveSettings();
     };
 
-
     return (
         <div className="bot-config-container">
-            {showNoChanges && (
-                <div className="no-changes-popup">
-                    <p>Nenhuma alteração para ser salva</p>
-                </div>
-            )}
             <h1>Configurações do bot</h1>
-
             <div className="config-section">
                 <div className="config-row">
                     <label>Prefixo</label>
@@ -134,16 +123,12 @@ function BotConfigurationPage() {
                     />
                 </div>
             </div>
-
             <StyledButton onClick={handleButtonClick}>Salvar Configurações</StyledButton>
-            {showConfirmation && (
-                <ConfirmationPopup
-                    message="Configurações salvas com sucesso"
-                    onClose={() => setShowConfirmation(false)}
-                />
+            {showPopup && (
+                <ConfirmationPopup message={popupMessage} onClose={() => setShowPopup(false)} />
             )}
         </div>
     );
-}
+};
 
 export default BotConfigurationPage;

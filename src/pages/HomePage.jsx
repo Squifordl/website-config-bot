@@ -3,9 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import './css/HomePage.css';
 import botIcon from '../assets/sexy.png';
 
+const NavButton = ({ label, route }) => {
+  const navigate = useNavigate();
+  return <button className="btn" onClick={() => navigate(route)}>{label}</button>;
+};
+
 function HomePage() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -24,12 +28,12 @@ function HomePage() {
   return (
     <div className="home-container">
       <div className="button-container">
-        <button className="btn desktop" onClick={() => navigate('/login')}>Login</button>
-        <button className="btn desktop" onClick={() => navigate('/dashboard')}>Dashboard</button>
+        <NavButton label="Login" route="/login" />
+        <NavButton label="Dashboard" route="/dashboard" />
         <button className="btn mobile" onClick={() => setDropdownOpen(!dropdownOpen)}>☰</button>
         <div className={`dropdown ${dropdownOpen ? 'open' : ''}`}>
-          <button className="btn" onClick={() => navigate('/login')}>Login</button>
-          <button className="btn" onClick={() => navigate('/dashboard')}>Dashboard</button>
+          <NavButton label="Login" route="/login" />
+          <NavButton label="Dashboard" route="/dashboard" />
         </div>
       </div>
       <section className="hero-section">
@@ -39,7 +43,7 @@ function HomePage() {
           O SuperBot é mais do que um simples bot para Discord. Descubra todas as funcionalidades que temos a oferecer!
         </p>
         <button className="btn action-btn" onClick={() => window.open('https://your-link-to-add-bot.com', '_blank')}>Adicionar o Bot</button>
-        <button className="btn action-btn" onClick={() => navigate('/comandos')}>Comandos</button>
+        <NavButton label="Comandos" route="/comandos" />
       </section>
       <section className="features card-container">
         <div className="feature">
