@@ -11,6 +11,7 @@ const StyledButton = styled(Button)({
     fontSize: '1rem',
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: '10px',
     transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
     '&:hover': {
@@ -35,6 +36,8 @@ function ConfirmationPopup({ message, onClose }) {
 function VipConfigurationPage() {
     const [roles, setRoles] = useState([]);
     const [vipRoles, setVipRoles] = useState([]);
+    const [initialVipRoles, setInitialVipRoles] = useState([]);
+    const [showNoChanges, setShowNoChanges] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const serverID = window.location.pathname.split('/')[2];
 
@@ -63,7 +66,9 @@ function VipConfigurationPage() {
                 )
             );
         }).then(vipRoleDetails => {
-            setVipRoles(vipRoleDetails.map(detail => detail.role));
+            const roles = vipRoleDetails.map(detail => detail.role);
+            setVipRoles(roles);
+            setInitialVipRoles(roles);
         }).catch(error => {
             console.error('Ocorreu um problema com sua operação de busca:', error);
         });
@@ -79,6 +84,14 @@ function VipConfigurationPage() {
     };
 
     const saveVipRoles = async () => {
+        const hasChanges = JSON.stringify(initialVipRoles) !== JSON.stringify(vipRoles);
+
+        if (!hasChanges) {
+            setShowNoChanges(true);
+            setTimeout(() => setShowNoChanges(false), 3000);
+            return;
+        }
+
         const apiUrl = `/api/server/saveVipRoles/${serverID}`;
 
         try {
@@ -104,6 +117,11 @@ function VipConfigurationPage() {
 
     return (
         <div className="vip-config-container">
+            {showNoChanges && (
+                <div className="no-changes-popup">
+                    <p>Nenhuma alteração para ser salva</p>
+                </div>
+            )}
             {showConfirmation && (
                 <ConfirmationPopup
                     message="Configurações salvas com sucesso"
@@ -117,7 +135,7 @@ function VipConfigurationPage() {
                     {roles.map((role) => (
                         <div key={role.id} className="config-row">
                             <span>
-                            <span className="role-name">Nome: </span>{role.name} ({role.id})
+                                <span className="role-name">Nome: </span>{role.name} ({role.id})
                             </span>
                             <button onClick={() => addVipRole(role)}>Adicionar</button>
                         </div>

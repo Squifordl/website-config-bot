@@ -1,6 +1,15 @@
+:root {
+    --button-bg-color: #007bff;
+    --button-text-color: #ffffff;
+    --button-hover-bg-color: #0056b3;
+    --button-active-bg-color: #004085;
+    --text-color: #ffffff;
+    --border-color: #ccc;
+    --input-focus-border-color: #007bff;
+}
+
 .vip-config-container {
     max-width: 800px;
-    margin: auto;
     padding: 50px;
     background-color: #1e1e1e;
     border-radius: 5px;
@@ -86,18 +95,19 @@
 }
 
 .confirmation-content {
+    background: #23272a;
+    color: #ffffff;
     width: 80%;
     max-width: 400px;
     padding: 20px;
-    background: var(--text-color);
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 
 .confirmation-content button {
-    background: #28a745;
-    color: #fff;
+    background: #2c2f33;
+    color: #ffffff;
     border: none;
     padding: 10px 15px;
     cursor: pointer;
@@ -106,7 +116,7 @@
 }
 
 .confirmation-content button:hover {
-    background-color: #23923d;
+    background-color: #3e4045;
 }
 
 .role-name {
@@ -117,4 +127,16 @@
 .role-id {
     font-weight: bold;
     color: #ffffff;
+}
+
+.no-changes-popup {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    background-color: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 100;
 }

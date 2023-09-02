@@ -63,6 +63,8 @@ function ConfirmationPopup({ message, onClose }) {
 
 function BotConfigurationPage() {
     const [showConfirmation, setShowConfirmation] = useState(false);
+    const [initialBotSettings, setInitialBotSettings] = useState({});
+    const [showNoChanges, setShowNoChanges] = useState(false);
     const serverID = window.location.pathname.split('/')[2];
     const [botSettings, setBotSettings] = useState({
         commandPrefix: "",
@@ -72,11 +74,12 @@ function BotConfigurationPage() {
         fetch(`/api/server/info/${serverID}`)
             .then(async (response) => {
                 const data = await response.json();
-
                 setBotSettings({
                     commandPrefix: data.server.prefix,
                 });
-
+                setInitialBotSettings({
+                    commandPrefix: data.server.prefix,
+                });
             })
             .catch((error) => console.error(error));
     }, [serverID]);
@@ -100,11 +103,25 @@ function BotConfigurationPage() {
     };
 
     const handleButtonClick = () => {
+        const hasChanges = JSON.stringify(initialBotSettings) !== JSON.stringify(botSettings);
+
+        if (!hasChanges) {
+            setShowNoChanges(true);
+            setTimeout(() => setShowNoChanges(false), 3000);
+            return;
+        }
+
         saveSettings();
     };
 
+
     return (
         <div className="bot-config-container">
+            {showNoChanges && (
+                <div className="no-changes-popup">
+                    <p>Nenhuma alteração para ser salva</p>
+                </div>
+            )}
             <h1>Configurações do bot</h1>
 
             <div className="config-section">

@@ -1,24 +1,35 @@
+:root {
+    --button-bg-color: #007bff;
+    --button-text-color: #ffffff;
+    --button-hover-bg-color: #0056b3;
+    --button-active-bg-color: #004085;
+    --text-color: #ffffff;
+    --border-color: #ccc;
+    --input-focus-border-color: #007bff;
+    --primary-bg-color: #1e1e1e;
+    --box-shadow-color: rgba(0, 0, 0, 0.2);
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     height: 100vh;
-    align-items: center;
-    background-color: #1e1e1e;
+    background-color: var(--primary-bg-color);
+    color: var(--text-color);
 }
 
 .bot-config-container {
     max-width: 800px;
-    margin: 0;
     padding: 50px;
-    background-color: #1e1e1e;
     border-radius: 5px;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+    background-color: var(--primary-bg-color);
+    box-shadow: 0 3px 15px var(--box-shadow-color);
+    color: var(--text-color);
 }
 
 .bot-config-container h1 {
     font-size: 2rem;
     font-weight: 600;
     margin-bottom: 30px;
-    color: #fff;
     text-align: center;
 }
 
@@ -51,7 +62,7 @@ body {
 .bot-config-container select {
     background: none;
     border: none;
-    border-bottom: 1px solid #e1e4e8;
+    border-color: var(--border-color);
     padding: 10px;
     color: #fff;
     transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
@@ -62,10 +73,8 @@ body {
 }
 
 .bot-config-container select:focus {
-    border-color: #0366d6;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
-    background-color: #1e1e1e;
-    color: #fff;
+    border-color: var(--input-focus-border-color);
+    box-shadow: 0 3px 15px var(--box-shadow-color);
 }
 
 .bot-config-container select:hover {
@@ -74,24 +83,26 @@ body {
 
 .bot-config-container button {
     padding: 10px 20px;
-    background: #28a745;
-    color: #fff;
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
     border: none;
     border-radius: 5px;
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    justify-content: center;
 }
 
 .bot-config-container button:hover {
-    background-color: #23923d;
+    background-color: var(--button-hover-bg-color);
+    box-shadow: 0 3px 15px var(--box-shadow-color);
     transform: translateY(-2px);
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .bot-config-container button:active {
     transform: translateY(0px);
-    box-shadow: none;
+    background-color: var(--button-active-bg-color);
+    box-shadow: 0 1px 5px var(--box-shadow-color);
 }
 
 .confirmation-popup {
@@ -108,18 +119,17 @@ body {
 }
 
 .confirmation-content {
-    width: 80%;
     max-width: 400px;
     padding: 20px;
-    background: var(--text-color);
+    background-color: var(--primary-bg-color);
     border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--box-shadow-color);
     text-align: center;
 }
 
 .confirmation-content button {
-    background: #28a745;
-    color: #fff;
+    background-color: var(--button-bg-color);
+    color: #ffffff;
     border: none;
     padding: 10px 15px;
     cursor: pointer;
@@ -128,5 +138,17 @@ body {
 }
 
 .confirmation-content button:hover {
-    background-color: #23923d;
+    background-color: var(--button-hover-bg-color);
+}
+
+.no-changes-popup {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    background-color: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 100;
 }
