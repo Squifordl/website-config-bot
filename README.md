@@ -61,6 +61,7 @@ CLIENT_SECRET=meuSegredoDoCliente
 REDIS_PASSWORD=minhaSenhaRedis
 REDIS_HOST=localhost
 REDIS_PORT=6379
+DEFAULT_URL=http://localhost:5000
 ```
 
 ## Execução do Projeto

@@ -8,7 +8,7 @@ const LoginPage = () => {
 
   const oauthUrl = useMemo(() => {
     const clientId = "950988940209455144";
-    const redirectUri = encodeURIComponent("http://localhost:5000/oauth");
+    const redirectUri = encodeURIComponent("process.env.DEFAULT_URL/oauth");
     const responseType = "code";
     const scope = "guilds%20identify";
 
