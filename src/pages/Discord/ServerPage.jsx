@@ -7,7 +7,7 @@ import '../css/Discord/ServerPage.css';
 
 const fetchServerData = async (serverId, setServerData, setError) => {
     try {
-        const response = await fetch(`/api/server/${serverId}`);
+        const response = await fetch(`/api/server/id/${serverId}`);
         if (!response.ok) {
             throw new Error('A resposta da rede não foi boa');
         }

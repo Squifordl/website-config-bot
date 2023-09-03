@@ -7,7 +7,7 @@ function CommandsPage() {
     useEffect(() => {
         const fetchCommands = async () => {
             try {
-                const response = await fetch('/api/commands');
+                const response = await fetch('/api/bot/commands');
                 const { commands } = await response.json();
                 setCommands(commands);
             } catch (error) {

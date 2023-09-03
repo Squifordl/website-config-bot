@@ -13,7 +13,7 @@ const LoadingSpinner = () => (
 
 const fetchServers = async (userId, setServers, setIsLoading, setErrorMessage) => {
     try {
-        const response = await fetch(`/api/servers/${userId}`);
+        const response = await fetch(`/api/server/user/${userId}`);
         if (!response.ok) {
             throw new Error('A resposta da rede não foi boa');
         }

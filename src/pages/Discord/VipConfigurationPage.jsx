@@ -35,9 +35,10 @@ const ConfirmationPopup = ({ message, onClose }) => (
 const RoleRow = ({ role, buttonLabel, onClick }) => (
     <div className="config-row">
         <span>
-            <span className="role-name">Nome: </span>{role.name} ({role.id})
+            <span className="role-name">Nome: </span>
+            {role?.name || 'Sem nome'} ({role?.id || 'Sem ID'})
         </span>
-        <button onClick={() => onClick(role)}>{buttonLabel}</button>
+        <button onClick={() => role?.role && onClick(role.role)}>{buttonLabel}</button>
     </div>
 );
 
@@ -60,11 +61,11 @@ const VipConfigurationPage = () => {
             try {
                 const { roles } = await fetchData(`/api/server/roles/${serverID}`);
                 setRoles(roles);
+                console.log("Roles:", roles);
 
                 const { server } = await fetchData(`/api/server/info/${serverID}`);
                 const vipRoles = await Promise.all(server.vip.map(({ id }) =>
                     fetchData(`/api/server/roles/${serverID}/${id}`)));
-
                 setVipRoles(vipRoles);
                 setInitialVipRoles([...vipRoles]);
             } catch (error) {
@@ -87,7 +88,7 @@ const VipConfigurationPage = () => {
             return;
         }
 
-        const apiUrl = `/api/server/saveVipRoles/${serverID}`;
+        const apiUrl = `/api/server/settings/saveVipRoles/${serverID}`;
 
         try {
             const response = await fetch(apiUrl, {
@@ -118,13 +119,13 @@ const VipConfigurationPage = () => {
             <div className="config-section">
                 <h2>Cargos Disponíveis</h2>
                 <div className="role-list">
-                    {roles.map(role => <RoleRow key={role.id} role={role} buttonLabel="Adicionar" onClick={addVipRole} />)}
+                    {roles.map((role, index) => role ? <RoleRow key={role.id} role={role} buttonLabel="Adicionar" onClick={addVipRole} /> : null)}
                 </div>
             </div>
             <div className="config-section">
                 <h2>Cargos VIP Atuais</h2>
                 <div className="vip-list">
-                    {vipRoles.map(role => <RoleRow key={role.id} role={role} buttonLabel="Remover" onClick={removeVipRole} />)}
+                    {vipRoles.map((role, index) => role.role ? <RoleRow key={index} role={role.role} buttonLabel="Remover" onClick={removeVipRole} /> : null)}
                 </div>
             </div>
             <StyledButton onClick={saveVipRoles}>Salvar Configurações</StyledButton>
