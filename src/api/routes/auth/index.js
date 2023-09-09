@@ -50,7 +50,7 @@ router.get("/", async (req, res) => {
             });
 
             res.redirect(
-                `process.env.DEFAULT_URL/callback?code=${code}&userId=${user.id}&username=${user.username}&avatar=${user.avatar}&discriminator=${user.discriminator}&acesstoken=${token}`
+                `${process.env.DEFAULT_URL}/callback?code=${code}&userId=${user.id}&username=${user.username}&avatar=${user.avatar}&discriminator=${user.discriminator}&acesstoken=${token}`
             );
 
         } catch (error) {
