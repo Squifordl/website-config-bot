@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
                         client_secret: process.env.CLIENT_SECRET,
                         code,
                         grant_type: "authorization_code",
-                        redirect_uri: `process.env.DEFAULT_URL/oauth`,
+                        redirect_uri: `${process.env.DEFAULT_URL}/oauth`,
                         scope: "guilds%20identify",
                     }).toString(),
                     headers: {

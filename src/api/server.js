@@ -11,7 +11,7 @@ const PORT = process.env.PORT;
 
 function configureMiddleware(app) {
     app.use(cors({
-        origin: ['process.env.DEFAULT_URL']
+        origin: [process.env.DEFAULT_URL]
     }));
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
