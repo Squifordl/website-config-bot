@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { request } = require("undici");
 const jwt = require("jsonwebtoken");
-const UserTeste = require("../database/Schema/User.js");
+const UserTeste = require("../../database/Schema/User");
 
 router.get("/", async (req, res) => {
     const { code } = req.query;
