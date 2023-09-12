@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
                         client_secret: process.env.CLIENT_SECRET,
                         code,
                         grant_type: "authorization_code",
-                        redirect_uri: `${process.env.DEFAULT_URL}/oauth`,
+                        redirect_uri: `http://localhost:5000/oauth`,
                         scope: "guilds%20identify",
                     }).toString(),
                     headers: {
@@ -50,7 +50,7 @@ router.get("/", async (req, res) => {
             });
 
             res.redirect(
-                `${process.env.DEFAULT_URL}/callback?code=${code}&userId=${user.id}&username=${user.username}&avatar=${user.avatar}&discriminator=${user.discriminator}&acesstoken=${token}`
+                `http://localhost:5000/callback?code=${code}&userId=${user.id}&username=${user.username}&avatar=${user.avatar}&discriminator=${user.discriminator}&acesstoken=${token}`
             );
 
         } catch (error) {

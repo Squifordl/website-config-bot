@@ -31,7 +31,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #2c2f33;
+    transition: background 0.2s ease-in-out;
+}
+
+.config-row:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.config-row:last-child {
+    border-bottom: none;
 }
 
 .config-row label {
@@ -48,6 +58,9 @@
     padding: 10px;
     width: 100%;
     outline: none;
+    border-radius: 5px;
+    padding-left: 5px;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .config-row input[type="text"]:focus {
@@ -60,19 +73,20 @@
     color: var(--button-text-color);
     border: none;
     border-radius: 5px;
-    padding: 10px;
+    padding: 12px 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease-in-out;
 }
 
 .config-row button:hover {
     background-color: var(--button-hover-bg-color);
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
 }
 
 .config-row button:active {
     background-color: var(--button-active-bg-color);
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    transform: scale(1);
 }
 
 .vip-list {
@@ -81,17 +95,27 @@
     gap: 10px;
 }
 
+.role-list,
+.vip-list {
+    margin-top: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
 .confirmation-popup {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px); 
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .confirmation-content {
@@ -103,6 +127,7 @@
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     text-align: center;
+    margin-top: 20px;
 }
 
 .confirmation-content button {
@@ -134,7 +159,7 @@
     top: 0;
     left: 50%;
     transform: translate(-50%, -100%);
-    background-color: #ff0000;
+    background-color: #E53E3E;
     color: #ffffff;
     padding: 10px;
     border-radius: 5px;
